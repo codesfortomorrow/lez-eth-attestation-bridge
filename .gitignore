@@ -1,0 +1,11 @@
+eth/node_modules/
+eth/.env
+target/
+*.log
+.DS_Store
+eth/.descrow-state.json
+eth/.bridge-state.json
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

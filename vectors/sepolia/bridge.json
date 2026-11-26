@@ -1,0 +1,39 @@
+{
+  "note": "PoC test deposits on Sepolia. test_only_* fields are included so the Rust tests can open the commitments; real clients re-derive the secret from the wallet signature and never publish it.",
+  "eth_chain_id": "11155111",
+  "lez_chain_id": "4998490",
+  "vault": "0x5814a30d1eA2C5596430f07cD17c4A6ff4f0ca6a",
+  "usdt": "0x486a602AcD311F5b4Cf69283761cE5335d211743",
+  "deposits": [
+    {
+      "id": 0,
+      "token": "0x486a602AcD311F5b4Cf69283761cE5335d211743",
+      "amount": "1000000000",
+      "commitment": "0xacb832dfcf7664384b299f5f195f3bd21f7507ae87f7dc49476920c59736dcc0",
+      "block": 12212340,
+      "tx": "0x57dcaef06b543ae309cabcafceb65d189ff1355d0df3fd7519d881def89dbd3c",
+      "slots": [
+        "0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5",
+        "0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb6"
+      ],
+      "record_value": "0x00000000000000003b9aca00486a602acd311f5b4cf69283761ce5335d211743",
+      "test_only_secret": "0xc324c406d93ca1bd465afa3f19e0ea9813b75f91997f879840b936747e431ec1",
+      "test_only_recipient": "0xa2d43b2bc7cebabcd05cbca706493201bee7b4e5f5568e7ea93a6a337f4d99d4"
+    },
+    {
+      "id": 1,
+      "token": "0x0000000000000000000000000000000000000000",
+      "amount": "10000000000000000",
+      "commitment": "0x165dfd6dab54164dba0012904230bb2e2d19e04e0ec9960225dcc87e919c0c77",
+      "block": 12212341,
+      "tx": "0xd9cfcf37c19896ff49ea4343e25be8fdf2c27e4903f348a793dd2b29c15c5882",
+      "slots": [
+        "0xada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7d",
+        "0xada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7e"
+      ],
+      "record_value": "0x00000000002386f26fc100000000000000000000000000000000000000000000",
+      "test_only_secret": "0x3b06fa8cb658c0a76453d8e9e4344ba3382bbf8786b34a194505cdb5491b1d90",
+      "test_only_recipient": "0x6613f29d31fe5723ea64ed7dd901fa5c3d4bd30d9b16527c09d05d63052055f1"
+    }
+  ]
+}

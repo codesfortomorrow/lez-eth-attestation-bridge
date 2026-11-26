@@ -1,0 +1,30 @@
+{
+  "descrow_version": "v2.2 (unmodified)",
+  "chain_id": "11155111",
+  "factory": "0x89c1695F175Ee0B47b9EC91042Dca0248DacDf55",
+  "deal": "0x18cd749EDC3753EA8c9555a26102Ec338232FB02",
+  "buyer": "0x9F08633ce2681D6187ACBaD2D5cbCe51A1217d44",
+  "seller": "0x901D19a17f5a1B15A33B1db328A6dD4666386532",
+  "token": "0x8709093fd981176Ac638f08ff97DaFF776c0Dd91",
+  "platform_wallet": "0xA70d8A0D9C8f84279735Ad87929CAe694Fc3e437",
+  "arbitrators": [
+    "0x6a179Db67CEE1A32E29607aFc3641F645A324bD4",
+    "0x703EDA9c9d2f6Df131d715528Bc5E1072339be39",
+    "0xf5D0F451527d30603Ae4cC41eD1711d0c6B2c9B9"
+  ],
+  "milestone_id": 0,
+  "funded_block": 12211796,
+  "fund_tx": "0x6cc1e0022a6104087f9cd77089cb0cfb8e476e042a18b532901a6f50a63386b4",
+  "milestones_slot": "3",
+  "milestone_struct_slots": 10,
+  "slots": {
+    "escrowedAmount": "0xc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85c",
+    "status": "0xc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f864"
+  },
+  "expected": {
+    "escrowedAmount": "980000000",
+    "status": 1,
+    "status_name": "Funded",
+    "deal_token_balance": "980000000"
+  }
+}

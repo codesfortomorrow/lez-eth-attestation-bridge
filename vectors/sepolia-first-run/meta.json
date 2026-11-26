@@ -1,0 +1,25 @@
+{
+  "network": "sepolia",
+  "chain_id": "11155111",
+  "token": "0x8709093fd981176Ac638f08ff97DaFF776c0Dd91",
+  "holder": "0x18cd749EDC3753EA8c9555a26102Ec338232FB02",
+  "token_decimals": 6,
+  "balances_mapping_slot": 0,
+  "storage_key": "0xd294ce8ee840068bd6f1e848e7798e67e9dc313b37aa89cc99c57722861f8943",
+  "expected_balance": "980000000",
+  "block_number": "12211799",
+  "block_hash": "0xcb9def9d8ca61d279db7e867d4b08545051ef0d4fe7e6dae7c6afcc6c1183879",
+  "state_root": "0xa8730f90d968909d33b7ef505b54e09f643e1b44b6597fc0e479235413b2682a",
+  "beacon_slot": "11658688",
+  "light_client_version": "gloas",
+  "descrow": {
+    "escrowed_amount": "980000000",
+    "status": "1",
+    "slots": {
+      "escrowedAmount": "0xc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85c",
+      "status": "0xc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f864"
+    }
+  },
+  "execution_layout": "gloas_block_hash",
+  "fetched_at": "2026-11-25T20:34:06.728Z"
+}
