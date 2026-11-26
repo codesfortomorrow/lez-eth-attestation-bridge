@@ -9,6 +9,19 @@ header and `eth_getProof`. No relayer, multisig or oracle is trusted.
 
 Everything below runs against **live Sepolia after the Glamsterdam (Gloas) upgrade**.
 
+**At a glance**
+
+| | |
+|---|---|
+| Finality | 493/512 sync-committee signatures, BLS aggregate verified |
+| Attested on Sepolia | DESCROW deal `Funded`, 980 tUSD escrowed; vault deposits of 1000 mUSDT and 0.01 ETH, each minted exactly once |
+| zkVM cost per claim | **~188k cycles** (about 1.9% of an assumed 10M budget), down from 1.6M with RISC Zero precompiles |
+| Batch of 3 claims | 404,739 cycles (2.2x one claim, not 3x) |
+| Fabricated chain | rejected in 9,559 cycles |
+| Reproduce | `cargo test --release` against committed vectors, no keys or RPC (see [Quick check](#quick-check-no-wallet-rpc-or-keys-needed)) |
+
+Details in [Measurements](#measurements) and [What is tested](#what-is-tested).
+
 Licensed MIT OR Apache-2.0.
 
 ---
@@ -66,9 +79,29 @@ Proof data from two finalized blocks is committed in `vectors/`:
 
 ---
 
+## Quick check (no wallet, RPC or keys needed)
+
+The live Sepolia proof data is committed in `vectors/`, so the whole verification can be
+re-run from a fresh clone:
+
+```bash
+cd crates/attest-core  && cargo test --release
+cd ../light-client     && cargo test --release
+cd ../bridge-core      && cargo test --release
+```
+
+Prerequisites: Rust 1.85 or newer (edition 2024) and a C compiler for `blst`
+(`build-essential` on Debian/Ubuntu, Xcode command line tools on macOS).
+
+---
+
 ## Running it
 
 ### Ethereum side (Node 18+)
+
+These scripts deploy your own copies of the contracts with your wallet, so the addresses will
+differ from the ones above. You need Sepolia ETH (about 0.02) for gas, the test seller and the
+ETH deposit.
 
 ```bash
 cd eth
@@ -83,11 +116,14 @@ npm run bridge              # LezVault + MockUSDT, deposits of 1000 mUSDT and 0.
 npm run fetch               # writes vectors/sepolia/*.json
 ```
 
+To send test tUSD to another address, set `SEND_TO` (and optionally `AMOUNT`) and run
+`npm run send`. It is a plain transfer, not an escrow.
+
 `BEACON_API` must serve the light-client routes. `https://lodestar-sepolia.chainsafe.io` works.
 
 `npm run escrow` and `npm run bridge` can be re-run; they pick up where they stopped. Their
 state files (`.descrow-state.json`, `.bridge-state.json`) are gitignored, and the first one
-holds the test seller's private key.
+holds the test seller's private key SO BE CAREFUL.
 
 What `fetch` checks before saving anything:
 
@@ -97,7 +133,7 @@ What `fetch` checks before saving anything:
 - the token's balances slot is found by matching storage against `balanceOf`, not assumed
 - the deal's and the vault's slots hold the expected values at the finalized block
 
-### Rust tests (stable Rust)
+### Rust tests
 
 ```bash
 cd crates/attest-core  && cargo test
@@ -245,6 +281,9 @@ is why the full design defaults to the private path.
 - the LEZ program itself (the guest is the measurement harness for the same code)
 - light-client update and committee handoff inside the zkVM, and the precompile comparison
 - binary instruction input, proving time and memory on a mid-range and a minimum-spec laptop
-- RFP-022: private mint path, burn and release, relayers, failsafe
+- event-log inclusion via the receipts root (account and storage slots are done)
+- RFP-022: private mint path, burn and release, relayers, failsafe. The private mint will publish
+  `H(secret, statement_id)` as its nullifier: the statement ID alone names the vault slot and
+  would link a private mint to its deposit
 - Logos core and UI modules, CLI, IDL, operator daemon
 - third-party audit

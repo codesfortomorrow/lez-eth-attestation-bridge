@@ -1,4 +1,4 @@
-// Sends AMOUNT tUSD straight to HOLDER. Only a fallback: this is not an escrow.
+// Sends tUSD from your wallet to any address. A testing helper, not part of the escrow flow.
 import { ethers } from "ethers";
 import { need, wallet } from "./helpers.mjs";
 
@@ -8,9 +8,9 @@ const token = new ethers.Contract(
   ["function transfer(address,uint256) returns (bool)", "function balanceOf(address) view returns (uint256)"],
   w
 );
-const holder = need("HOLDER");
+const to = ethers.getAddress(need("SEND_TO"));
 const amount = ethers.parseUnits(process.env.AMOUNT || "1000", 6);
-const tx = await token.transfer(holder, amount);
+const tx = await token.transfer(to, amount);
 console.log(`transfer tx: ${tx.hash}`);
 await tx.wait();
-console.log(`HOLDER balance now: ${ethers.formatUnits(await token.balanceOf(holder), 6)} tUSD`);
+console.log(`${to} now holds ${ethers.formatUnits(await token.balanceOf(to), 6)} tUSD`);

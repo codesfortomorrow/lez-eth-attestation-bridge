@@ -64,7 +64,12 @@ if ((await p.getCode(TOKEN, tag)) === "0x") {
     : `No contract at TOKEN ${TOKEN} on chain ${(await p.getNetwork()).chainId}. Check TOKEN in eth/.env (must be the contract address printed by deploy:token).`);
 }
 const bal = await erc20.balanceOf(HOLDER, { blockTag: tag });
-if (bal === 0n) throw new Error(`HOLDER has 0 balance at finalized block ${finBlock}. Fund it, wait ~15 min, re-run.`);
+if (bal === 0n) {
+  const now = await erc20.balanceOf(HOLDER);
+  throw new Error(now > 0n
+    ? `HOLDER ${HOLDER} has tokens now but not yet at finalized block ${finBlock}. Wait ~15 min, re-run.`
+    : `HOLDER ${HOLDER} holds no TOKEN ${TOKEN} at all. If you redeployed the token, run npm run escrow and put the new deal address in .env as HOLDER.`);
+}
 const coder = ethers.AbiCoder.defaultAbiCoder();
 let mappingSlot = -1, storageKey;
 for (let i = 0; i < 20; i++) {
